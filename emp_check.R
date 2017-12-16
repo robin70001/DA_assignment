@@ -1,5 +1,29 @@
-library(ggplot2)
+install.packages("corrplot")
+install.packages("ggplot2")
+install.packages("caret")
+install.packages("rpart")
+install.packages("rpart.plot")
+install.packages("e1071")
+install.packages("caTools")
+install.packages("rattle")
+install.packages("gridExtra")
+install.packages("ROCR")
+install.packages("randomForest")
+install.packages("randomForestSRC")
+install.packages("reshape2")
+install.packages("RColorBrewer")
 library(readxl)
+library(ggplot2)
+library(gridExtra)
+library(corrplot)
+library(caTools)
+library(ROCR)
+library(ipred)
+library(gbm)
+library(C50)
+library(rpart.plot)
+library(rpart)
+library(randomForest)
 
 # read_excel reads both xls and xlsx files
 read_excel("my-old-spreadsheet.xls")
@@ -39,3 +63,7 @@ qplot(x = MonthlyIncome, data = data) +
   facet_grid(JobLevel~Gender)
 
 qplot(x = DistanceFromHome, data = data)
+
+binary.model <- rpart(Attrition~., data=data, cp=.02)
+rpart.plot(binary.model)
+fallen.leaves <- "false"
