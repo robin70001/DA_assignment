@@ -1,0 +1,153 @@
+---
+title: "DADS2"
+output: html_document
+user : kanishka 
+---
+
+```{r}
+dataset = read.csv('Employeeattrition.csv')
+View(dataset)
+dim(dataset)
+```
+```{r}
+#removing the variables which are not useful for our dataframe
+df = subset(dataset, select = -c(StandardHours,Over18,EmployeeCount,EmployeeNumber) )
+ 
+View(df)
+summary(df)
+```
+```{r}
+#Structure of the Dataset
+str(df)
+```
+```{r}
+#need to identify the int/fact and convert them to their relevant format
+
+#----------- changing int to factors ------------#
+df$Education<- as.factor(df$Education)
+df$EnvironmentSatisfaction<- as.factor(df$EnvironmentSatisfaction)
+df$JobSatisfaction<- as.factor(df$JobSatisfaction)
+df$JobInvolvement<- as.factor(df$JobInvolvement)
+df$PerformanceRating<- as.factor(df$PerformanceRating)
+df$RelationshipSatisfaction<- as.factor(df$RelationshipSatisfaction)
+df$WorkLifeBalance<- as.factor(df$WorkLifeBalance)
+
+str(df)
+
+```
+
+```{r}
+#installed package for plotting
+install.packages("ggplot2")
+
+#using the package
+library(ggplot2)
+
+ggplot(df, aes(Age)) + geom_bar() 
+#using required variables (Age, BusinessTravel, DistanceFromHome, Gender) for plotting the graph. 
+
+p1 = ggplot(df, aes(Age)) + geom_bar(aes(fill= Attrition)) + ggtitle("Plot for Age") 
+#variable 'Age' is compared and analysied with 'Attrition'
+
+p2 = ggplot(df, aes(BusinessTravel)) + geom_bar(aes(fill= Attrition)) + ggtitle("Plot for Business travel")
+
+p3 = ggplot(df, aes(DistanceFromHome)) + geom_bar(aes(fill= Attrition)) + ggtitle("Plot for Distance from home")
+
+p4 = ggplot(df, aes(Gender)) + geom_bar(aes(fill= Attrition)) + ggtitle("Plot for Gender")
+
+#installing package for multiple plotting 
+install.packages("Rmisc")
+library(Rmisc)
+
+#multiplot
+multiplot(p1, p2, p3, p4, cols=2)
+
+```
+
+```{r}
+#Splitting the data sets
+
+install.packages('caTools')
+library(caTools)
+
+split = sample.split(df$Attrition, SplitRatio = 0.8)
+training_set = subset(df, split == TRUE)
+test_set = subset(df, split == FALSE)
+```
+
+```{r}
+#plotting a tree 
+
+#install package for tree
+install.packages("rpart")
+
+#using the package
+library(rpart)
+
+#Grow tree
+fit <- rpart(Attrition ~ .,
+             method="class", data=df)
+preds <- predict(fit, test_set)
+
+fit
+plotcp(fit)
+
+# plot tree 
+plot(fit, uniform=TRUE, 
+       main="Classification Tree for DF")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+
+
+```
+
+```{r}
+#bagging
+
+#installing new packages
+
+
+library(foreach)
+library(doParallel)
+library(rpart)
+
+#setup parallel back end to use 8 processors
+cl<-makeCluster(8)
+registerDoParallel(cl)
+
+# divide row size by 20, sample data 400 times 
+length_divisor <- 20
+predictions<-foreach(m=1:400,.combine=cbind) %dopar% { 
+  library(rpart)
+  # using sample function without seed
+  sampleRows <- sample(nrow(df), size=floor((nrow(df)/length_divisor)))
+  fit <- rpart(Attrition ~ ., method="class", data = df[sampleRows,])
+  predictions <- data.frame(predict(object=fit, test_set, se.fit = TRUE)[[1]])
+} 
+stopCluster(cl)
+```
+
+
+```{r}
+#Random Forest
+
+#install packages
+install.packages("randomForest")
+library(randomForest)
+
+fit <- randomForest(formula = Attrition ~ ., data = training_set)
+
+preds <- predict(fit, test_set)
+
+preds
+```
+
+```{r}
+#ROC Curve.
+
+install.packages("pROC")
+library('pROC')
+
+auc(df$Attrition, predictions)
+
+```
+
