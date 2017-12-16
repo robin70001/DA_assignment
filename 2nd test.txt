@@ -1,0 +1,542 @@
+
+> library(readxl)
+Warning message:
+package ‘readxl’ was built under R version 3.4.2 
+> library(ggplot2)
+> library(gridExtra)
+Warning message:
+package ‘gridExtra’ was built under R version 3.4.3 
+> library(corrplot)
+corrplot 0.84 loaded
+Warning message:
+package ‘corrplot’ was built under R version 3.4.3 
+> library(caTools)
+Warning message:
+package ‘caTools’ was built under R version 3.4.3 
+> library(ROCR)
+Loading required package: gplots
+
+Attaching package: ‘gplots’
+
+The following object is masked from ‘package:stats’:
+
+    lowess
+
+Warning messages:
+1: package ‘ROCR’ was built under R version 3.4.3 
+2: package ‘gplots’ was built under R version 3.4.3 
+> library(ipred)
+Warning message:
+package ‘ipred’ was built under R version 3.4.2 
+> library(gbm)
+Error in library(gbm) : there is no package called ‘gbm’
+> library(C50)
+Warning message:
+package ‘C50’ was built under R version 3.4.3 
+> install.packages("gbm")
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/gbm_2.1.3.zip'
+Content type 'application/zip' length 904115 bytes (882 KB)
+downloaded 882 KB
+
+package ‘gbm’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\acer\AppData\Local\Temp\RtmpQZi8wb\downloaded_packages
+> library(readxl)
+> library(ggplot2)
+> library(gridExtra)
+> library(corrplot)
+> library(caTools)
+> library(ROCR)
+> library(ipred)
+> library(gbm)
+Loading required package: survival
+Loading required package: lattice
+Loading required package: splines
+Loading required package: parallel
+Loaded gbm 2.1.3
+Warning message:
+package ‘gbm’ was built under R version 3.4.3 
+> library(C50)
+> library(gbm)
+> setwd("~/")
+> setwd("D:/1 TCD COURSEWORK/Data analytics/DA_assignment")
+> data <- read_excel("empatt.xlsx")
+> View(data)
+> binary.model <- rpart(Attrition~., data=data, cp=.2)
+Error in rpart(Attrition ~ ., data = data, cp = 0.2) : 
+  could not find function "rpart"
+> library(rpart
++ )
+Warning message:
+package ‘rpart’ was built under R version 3.4.3 
+> library(rpart)
+> binary.model <- rpart(Attrition~., data=data, cp=.2)
+> rpart.plot(binary.model)
+Error in rpart.plot(binary.model) : could not find function "rpart.plot"
+> install.packages("rpart.plot")
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/rpart.plot_2.1.2.zip'
+Content type 'application/zip' length 719109 bytes (702 KB)
+downloaded 702 KB
+
+package ‘rpart.plot’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\acer\AppData\Local\Temp\RtmpQZi8wb\downloaded_packages
+> library(rpart.plot)
+Warning message:
+package ‘rpart.plot’ was built under R version 3.4.3 
+> library(rpart.plot)
+> rpart.plot(binary.model)
+> binary.model <- rpart(Attrition~., data=data, cp=.02)
+> rpart.plot(binary.model)
+> fallen.leaves <- "false"
+> multi.class.model <- rpart(Attrition~., data=data)
+> rpart.plot(multi.class.model)
+> multi.class.model <- rpart(Attrition~., data=data, type = 3)
+Error in rpart(Attrition ~ ., data = data, type = 3) : 
+  Argument type not matched
+> multi.class.model <- rpart(Attrition~.,type = 3, tweak = 1.2, data=data)
+Error in rpart(Attrition ~ ., type = 3, tweak = 1.2, data = data) : 
+  c("Argument type not matched", "Argument tweak not matched")
+> rpart.plot(multi.class.model, type=2, fallen.leaves=FALSE,  )
+> rpart.plot(multi.class.model, fallen.leaves=FALSE )
+> rpart.plot(multi.class.model, type=1, fallen.leaves=TRUE)
+> rpart.plot(multi.class.model, type=1, fallen.leaves=FALSE)
+> rpart.plot(multi.class.model, type=1, fallen.leaves=FALSE, tweak = 1.5)
+> rpart.plot(multi.class.model, type=1, fallen.leaves=FALSE, tweak = 2.5)
+> rpart.plot(multi.class.model, type=1, fallen.leaves=TRUE, tweak = 2.5)
+> rpart.plot(multi.class.model, type=2, fallen.leaves=TRUE, tweak = 2.5)
+> rpart.plot(binary.model,type=2, fallen.leaves=TRUE, tweak = 2.5)
+> rpart.plot(binary.model,type=2, fallen.leaves=TRUE, tweak = 1.2)
+> rpart.plot(binary.model,type=2, fallen.leaves=TRUE, tweak = 1)
+> rpart.plot(binary.model,type=3, fallen.leaves=TRUE, tweak = 1.2)
+> rpart.plot(binary.model,type=4, fallen.leaves=TRUE, tweak = 1.3, extra = 100)
+> rpart.plot(binary.model,type=4, fallen.leaves=TRUE, tweak = 1.8, extra = 100)
+> rpart.plot(binary.model,type=1, fallen.leaves=TRUE, tweak = 1.8, extra = 100)
+> rpart.plot(binary.model,type=1, fallen.leaves=TRUE, tweak = 1.8, extra = 100 , compress = FALSE)
+> rpart.plot(binary.model,type=1, fallen.leaves=TRUE, tweak = 1.8, extra = 100 , compress = FALSE, ycompress = FALSE)
+> names(data)
+ [1] "Age"                      "Attrition"                "BusinessTravel"          
+ [4] "DailyRate"                "Department"               "DistanceFromHome"        
+ [7] "Education"                "EducationField"           "EmployeeCount"           
+[10] "EmployeeNumber"           "EnvironmentSatisfaction"  "Gender"                  
+[13] "HourlyRate"               "JobInvolvement"           "JobLevel"                
+[16] "JobRole"                  "JobSatisfaction"          "MaritalStatus"           
+[19] "MonthlyIncome"            "MonthlyRate"              "NumCompaniesWorked"      
+[22] "Over18"                   "OverTime"                 "PercentSalaryHike"       
+[25] "PerformanceRating"        "RelationshipSatisfaction" "StandardHours"           
+[28] "StockOptionLevel"         "TotalWorkingYears"        "TrainingTimesLastYear"   
+[31] "WorkLifeBalance"          "YearsAtCompany"           "YearsInCurrentRole"      
+[34] "YearsSinceLastPromotion"  "YearsWithCurrManager"    
+> multi.class.model <- rpart(Attrition~OverTime+JobSatisfaction+MonthlyIncome, data=data)
+> rpart.plot(multi.class.model,type=1, fallen.leaves=TRUE, tweak = 1.8, extra = 100 , compress = FALSE, ycompress = FALSE)
+> rpart.plot(multi.class.model,type=1, fallen.leaves=TRUE, tweak = 0.5, extra = 100 , compress = FALSE, ycompress = FALSE)
+> multi.class.model <- rpart(Attrition~OverTime+JobLevel+JobSatisfaction+MonthlyIncome, data=data)
+> rpart.plot(multi.class.model,type=1, fallen.leaves=TRUE, tweak = 0.5, extra = 100 , compress = FALSE, ycompress = FALSE)
+> binary.model <- rpart(Attrition~OverTime+JobLevel+JobSatisfaction+MonthlyIncome, data=data)
+> rpart.plot(binary.model,type=1, fallen.leaves=TRUE, tweak = 0.5, extra = 100 , compress = FALSE, ycompress = FALSE)
+> binary.model <- rpart(Attrition~OverTime+JobLevel+JobSatisfaction+MonthlyIncome, data=data)
+> rpart.plot(binary.model,type=1, fallen.leaves=TRUE, tweak = 0.5, extra = 100)
+> rpart.plot(binary.model,type=1, fallen.leaves=TRUE, tweak = 0.8, extra = 100)
+> rpart.plot(binary.model,type=0, fallen.leaves=TRUE, tweak = 0.8, extra = 100)
+> rpart.plot(binary.model,type=2, fallen.leaves=TRUE, tweak = 0.8, extra = 100)
+> rpart.plot(binary.model,type=2, tweak = 0.8, extra = 100)
+> rpart.plot(binary.model,type=2, fallen.leaves=FALSE, tweak = 0.8, extra = 100)
+> rpart.plot(binary.model,type=4, fallen.leaves=FALSE, tweak = 0.8, extra = 100)
+> rpart.plot(binary.model,type=3, fallen.leaves=FALSE, tweak = 0.8, extra = 100)
+> rpart.plot(binary.model,type=0, fallen.leaves=FALSE, tweak = 0.8, extra = 100)
+> fit1 <- rpart(Attrition~OverTime+JobLevel+JobSatisfaction+MonthlyIncome, data=data)
+> fit2 <- rpart(Attrition ~ OverTime + JobLevel + JobSatisfaction + MonthlyIncome, data=data, split = "information")
+Error in rpart(Attrition ~ OverTime + JobLevel + JobSatisfaction + MonthlyIncome,  : 
+  Argument split not matched
+> fit2 <- rpart(Attrition ~ OverTime + JobLevel + JobSatisfaction + MonthlyIncome, data=data, parms = list(split = "information"))
+> rpart.plot(fit2,type=0, fallen.leaves=FALSE, tweak = 0.8, extra = 100)
+> fit3 <- rpart(Attrition~OverTime+JobLevel+JobSatisfaction+MonthlyIncome, data=data, cp = 0.5)
+> rpart.plot(fit3,type=0, fallen.leaves=FALSE, tweak = 0.8, extra = 100)
+> fit3 <- rpart(Attrition~OverTime+JobLevel+JobSatisfaction+MonthlyIncome, data=data, cp = 0.05)
+> rpart.plot(fit3,type=0, fallen.leaves=FALSE, tweak = 0.8, extra = 100)
+> fit3 <- rpart(Attrition~OverTime+JobLevel+JobSatisfaction+MonthlyIncome, data=data, cp = 0.005)
+> rpart.plot(fit3,type=0, fallen.leaves=FALSE, tweak = 0.8, extra = 100)
+> fit4 <- rpart(Attrition~OverTime+JobSatisfaction+MonthlyIncome, data=data, cp = 0.001)
+> rpart.plot(fit4,type=0, fallen.leaves=FALSE, tweak = 1.1, extra = 100)
+> rpart.plot(fit4,type=0, fallen.leaves=FALSE, tweak = 1.8, extra = 100)
+> rpart.plot(fit4,type=0, fallen.leaves=TRUE, tweak = 1.8, extra = 100)
+> rpart.plot(fit4,type=0, fallen.leaves=FALSE, tweak = 1.8, extra = 100)
+> fit4 <- rpart(Attrition~OverTime+JobSatisfaction+MonthlyIncome, data=data, cp = 0.05)
+> rpart.plot(fit4,type=0, fallen.leaves=FALSE, tweak = 1.8, extra = 100)
+> fit4 <- rpart(Attrition~OverTime+JobSatisfaction+MonthlyIncome, data=data, cp = 1.05)
+> rpart.plot(fit4,type=0, fallen.leaves=FALSE, tweak = 1.8, extra = 100)
+> fit4 <- rpart(Attrition~OverTime+JobSatisfaction+MonthlyIncome, data=data, cp = .01)
+> rpart.plot(fit4,type=0, fallen.leaves=FALSE, tweak = 1.8, extra = 100)
+> fit4 <- rpart(Attrition~OverTime+JobSatisfaction+MonthlyIncome, data=data, cp = .009)
+> rpart.plot(fit4,type=0, fallen.leaves=FALSE, tweak = 1.8, extra = 100)
+> fit4 <- rpart(Attrition~OverTime+JobSatisfaction+MonthlyIncome, data=data, cp = .004)
+> rpart.plot(fit4,type=0, fallen.leaves=FALSE, tweak = 1.8, extra = 100)
+> fit4 <- rpart(Attrition~OverTime+JobSatisfaction+MonthlyIncome, data=data, cp = .009)
+> rpart.plot(fit4,type=0, fallen.leaves=FALSE, tweak = 1.8, extra = 100)
+> fit4 <- rpart(Attrition~OverTime+JobSatisfaction+MonthlyIncome, data=data, cp = .005)
+> rpart.plot(fit4,type=0, fallen.leaves=FALSE, tweak = 1.8, extra = 100)
+> rpart.plot(fit4,type=0, fallen.leaves=FALSE, tweak = 1, extra = 100)
+> fit4 <- rpart(Attrition~OverTime+JobSatisfaction+MonthlyIncome, data=data, cp = .007)
+> rpart.plot(fit4,type=0, fallen.leaves=FALSE, tweak = 1, extra = 100)
+> fit4 <- rpart(Attrition~OverTime+JobSatisfaction+MonthlyIncome, data=data, cp = .005)
+> rpart.plot(fit4,type=0, fallen.leaves=FALSE, tweak = 1, extra = 100)
+> fit4 <- rpart(Attrition~JobSatisfaction+MonthlyIncome+OverTime, data=data, cp = .005)
+> rpart.plot(fit4,type=0, fallen.leaves=FALSE, tweak = 1, extra = 100)
+> fit4 <- rpart(Attrition~JobSatisfaction+MonthlyIncome+OverTime, data=data, cp = .005)
+> rpart.plot(fit4,type=0, fallen.leaves=FALSE, tweak = 1, extra = 100)
+> fit4 <- rpart(Attrition~MonthlyIncome+JobSatisfaction+OverTime, data=data, cp = .005)
+> rpart.plot(fit4,type=0, fallen.leaves=FALSE, tweak = 1, extra = 100)
+> fit5 <- rpart(Attrition~data$MonthlyIncome+data$JobSatisfaction+data$OverTime, data=data, cp = .005 , method="class")
+> rpart.plot(fit5,type=0, fallen.leaves=FALSE, tweak = 1, extra = 100)
+> fit5 <- rpart(Attrition~MonthlyIncome+JobSatisfaction+OverTime, data=data, cp = .005, method = "anova")
+Warning message:
+In rpart(Attrition ~ MonthlyIncome + JobSatisfaction + OverTime,  :
+  NAs introduced by coercion
+> fit5 <- rpart(Attrition~MonthlyIncome+JobSatisfaction+OverTime, data=data, cp = .005, method = "anova")
+Warning message:
+In rpart(Attrition ~ MonthlyIncome + JobSatisfaction + OverTime,  :
+  NAs introduced by coercion
+> fit5 <- rpart(Attrition~MonthlyIncome+JobSatisfaction+OverTime, data=data, cp = .005, method = "poisson")
+Warning message:
+In rpart(Attrition ~ MonthlyIncome + JobSatisfaction + OverTime,  :
+  NAs introduced by coercion
+> fit5 <- rpart(Attrition~MonthlyIncome+JobSatisfaction+OverTime, data=data, cp = .005, method = "class")
+> fancyRpartplot(fit5)
+Error in fancyRpartplot(fit5) : could not find function "fancyRpartplot"
+> fancyRpartPlot(fit5)
+Error in fancyRpartPlot(fit5) : could not find function "fancyRpartPlot"
+> library(rpart.plot)
+> 
+> library(RColorBrewer)
+> fancyRpartPlot(fit5)
+Error in fancyRpartPlot(fit5) : could not find function "fancyRpartPlot"
+> library(rattle)
+Rattle: A free graphical interface for data science with R.
+Version 5.1.0 Copyright (c) 2006-2017 Togaware Pty Ltd.
+Type 'rattle()' to shake, rattle, and roll your data.
+Warning message:
+package ‘rattle’ was built under R version 3.4.2 
+> rattle()
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/reshape_0.8.7.zip'
+Content type 'application/zip' length 128294 bytes (125 KB)
+downloaded 125 KB
+
+package ‘reshape’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\acer\AppData\Local\Temp\RtmpQZi8wb\downloaded_packages
+> fancyRpartPlot(fit5)
+Warning message:
+package ‘reshape’ was built under R version 3.4.3 
+> fancyRpartPlot(fit5,type=0, fallen.leaves=FALSE, tweak = 1.8, extra = 100)
+Error in rpart.plot::prp(model, type = type, extra = extra, box.col = pals[col.index],  : 
+  formal argument "extra" matched by multiple actual arguments
+> fancyRpartPlot(fit5,type=0, fallen.leaves=FALSE, tweak = 1.8)
+Error in rpart.plot::prp(model, type = type, extra = extra, box.col = pals[col.index],  : 
+  formal argument "fallen.leaves" matched by multiple actual arguments
+> fancyRpartPlot(fit5, tweak = 1.8)
+> fancyRpartPlot(fit5, tweak = 2.4)
+> fancyRpartPlot(fit5, tweak = 2.1,uniform=TRUE)
+> fancyRpartPlot(fit5, tweak = 2.1,uniform=TRUE,main="Pruned Classification Tree")
+> fancyRpartPlot(fit5, tweak = 2.1,uniform=TRUE,main="Pruned Classification Tree", compress=FALSE)
+> fancyRpartPlot(fit5, tweak = 2.1,uniform=TRUE,main="Pruned Classification Tree", compress=TRUE)
+> fancyRpartPlot(fit5, tweak = 2.1,uniform=TRUE,main="Pruned Classification Tree", ycompress=TRUE)
+> fancyRpartPlot(fit5, tweak = 2.1,uniform=TRUE,main="Pruned Classification Tree", ycompress=FALSE)
+> fancyRpartPlot(fit5, tweak = 2.1,uniform=TRUE,main="Pruned Classification Tree", ycompress=FALSE, type = 1)
+> fancyRpartPlot(fit5, tweak = 2.1,uniform=TRUE, type = 2)
+> fancyRpartPlot(fit5, tweak = 2.5,uniform=TRUE, type = 2)
+> fancyRpartPlot(fit5, tweak = 1,uniform=TRUE, type = 2)
+> fancyRpartPlot(fit5, tweak = 1.5,uniform=TRUE, type = 2)
+> fancyRpartPlot(fit5, tweak = 1.8,uniform=TRUE, type = 2)
+> fit5 <- rpart(Attrition~MonthlyIncome+JobSatisfaction+OverTime, data=data, cp = .009, method = "class")
+> fancyRpartPlot(fit5, tweak = 1.8,uniform=TRUE, type = 2)
+> fancyRpartPlot(fit5, tweak = 1,uniform=TRUE, type = 2)
+> fit5 <- rpart(Attrition~MonthlyIncome+JobSatisfaction+OverTime, data=data, cp = .009, method = "class", split = "information")
+Error in rpart(Attrition ~ MonthlyIncome + JobSatisfaction + OverTime,  : 
+  Argument split not matched
+> fit5 <- rpart(Attrition~MonthlyIncome+JobSatisfaction+OverTime, data=data, cp = .009, method = "class",)
+> fit5 <- rpart(Attrition~MonthlyIncome+JobSatisfaction+OverTime, data=data, cp = .009, method = "class",+
++ parms = list(split = "information"))
+Error: unexpected '=' in:
+"fit5 <- rpart(Attrition~MonthlyIncome+JobSatisfaction+OverTime, data=data, cp = .009, method = "class",+
+parms ="
+> fit5 <- rpart(Attrition~MonthlyIncome+JobSatisfaction+OverTime, data=data, cp = .009, method = "class",parms = list(split = "information"))
+> fancyRpartPlot(fit5, tweak = 1,uniform=TRUE, type = 2)
+> fit5 <- rpart(Attrition~MonthlyIncome+JobSatisfaction+OverTime, data=data, cp = .009, method = "class",parms = list(split = "Gini"))
+> fancyRpartPlot(fit5, tweak = 1,uniform=TRUE, type = 2)
+> empdat <- data
+> empdat <- data[,C(2,16,17,19,23,29,31,32,33,35)]
+Error in C(2, 16, 17, 19, 23, 29, 31, 32, 33, 35) : 
+  object not interpretable as a factor
+> empdat <- data[,c(2,16,17,19,23,29,31,32,33,35)]
+> View(empdat)
+> empdat <- empdat[,c(1,3,4,5,6,7,8,9,10)]
+> empdat1 <- empdat
+> empdat1$Attrition <- as.numeric(factor(empdat1$Attrition,levels = c('Yes', 'No'), labels =c(1,2) ))
+> View(empdat1)
+> empdat1$OverTime <- as.numeric(factor(empdat1$OverTime,levels = c('Yes', 'No'), labels =c(1,2) ))
+> corri <- cor(empdat1)
+> corri
+                      Attrition JobSatisfaction MonthlyIncome     OverTime TotalWorkingYears
+Attrition            1.00000000     0.103481126   0.159839582  0.246117994       0.171063246
+JobSatisfaction      0.10348113     1.000000000  -0.007156742 -0.024539481      -0.020185073
+MonthlyIncome        0.15983958    -0.007156742   1.000000000 -0.006089285       0.772893246
+OverTime             0.24611799    -0.024539481  -0.006089285  1.000000000      -0.012754266
+TotalWorkingYears    0.17106325    -0.020185073   0.772893246 -0.012754266       1.000000000
+WorkLifeBalance      0.06393905    -0.019458710   0.030683082  0.027091878       0.001007646
+YearsAtCompany       0.13439221    -0.003802628   0.514284826  0.011687120       0.628133155
+YearsInCurrentRole   0.16054500    -0.002304785   0.363817667  0.029758009       0.460364638
+YearsWithCurrManager 0.15619932    -0.027656214   0.344078883  0.041585999       0.459188397
+                     WorkLifeBalance YearsAtCompany YearsInCurrentRole YearsWithCurrManager
+Attrition                0.063939047    0.134392214        0.160545004           0.15619932
+JobSatisfaction         -0.019458710   -0.003802628       -0.002304785          -0.02765621
+MonthlyIncome            0.030683082    0.514284826        0.363817667           0.34407888
+OverTime                 0.027091878    0.011687120        0.029758009           0.04158600
+TotalWorkingYears        0.001007646    0.628133155        0.460364638           0.45918840
+WorkLifeBalance          1.000000000    0.012089185        0.049856498           0.00275944
+YearsAtCompany           0.012089185    1.000000000        0.758753737           0.76921243
+YearsInCurrentRole       0.049856498    0.758753737        1.000000000           0.71436476
+YearsWithCurrManager     0.002759440    0.769212425        0.714364762           1.00000000
+> round
+function (x, digits = 0)  .Primitive("round")
+> round(corri, 2)
+                     Attrition JobSatisfaction MonthlyIncome OverTime TotalWorkingYears WorkLifeBalance
+Attrition                 1.00            0.10          0.16     0.25              0.17            0.06
+JobSatisfaction           0.10            1.00         -0.01    -0.02             -0.02           -0.02
+MonthlyIncome             0.16           -0.01          1.00    -0.01              0.77            0.03
+OverTime                  0.25           -0.02         -0.01     1.00             -0.01            0.03
+TotalWorkingYears         0.17           -0.02          0.77    -0.01              1.00            0.00
+WorkLifeBalance           0.06           -0.02          0.03     0.03              0.00            1.00
+YearsAtCompany            0.13            0.00          0.51     0.01              0.63            0.01
+YearsInCurrentRole        0.16            0.00          0.36     0.03              0.46            0.05
+YearsWithCurrManager      0.16           -0.03          0.34     0.04              0.46            0.00
+                     YearsAtCompany YearsInCurrentRole YearsWithCurrManager
+Attrition                      0.13               0.16                 0.16
+JobSatisfaction                0.00               0.00                -0.03
+MonthlyIncome                  0.51               0.36                 0.34
+OverTime                       0.01               0.03                 0.04
+TotalWorkingYears              0.63               0.46                 0.46
+WorkLifeBalance                0.01               0.05                 0.00
+YearsAtCompany                 1.00               0.76                 0.77
+YearsInCurrentRole             0.76               1.00                 0.71
+YearsWithCurrManager           0.77               0.71                 1.00
+> library('corrplot')
+> corrplot(corri, method = "circle")
+> fancyRpartPlot(fit5, tweak = 1,uniform=TRUE, type = 2)
+> fit6 <- rpart(Attrition~MonthlyIncome+TotalWorkingYears+OverTime, data=data, cp = .009, method = "class",)
+> fancyRpartPlot(fit6, tweak = 1,uniform=TRUE, type = 2)
+> fit6 <- rpart(Attrition~MonthlyIncome+TotalWorkingYears+OverTime, data=data, cp = .005, method = "class",)
+> fancyRpartPlot(fit6, tweak = 1,uniform=TRUE, type = 2)
+> fancyRpartPlot(fit6, tweak = 1.8,uniform=TRUE, type = 2)
+> fancyRpartPlot(fit6, tweak = 1.5,uniform=TRUE, type = 2)
+> rpart.plot(fit6,type=0, fallen.leaves=FALSE, tweak = 1.8, extra = 104)
+> rpart.plot(fit6,type=0, fallen.leaves=FALSE, tweak = 1, extra = 104)
+> rpart.plot(fit6,type=0, fallen.leaves=FALSE, tweak = 0.8, extra = 104)
+> rpart.plot(fit6,type=0, fallen.leaves=TRUE, tweak = 0.8, extra = 104)
+> rpart.plot(fit6,type=2, fallen.leaves=TRUE, tweak = 0.8, extra = 104)
+> rpart.plot(fit6,type=2, fallen.leaves=TRUE, tweak = 1.3, extra = 104)
+> fit7 <- rpart(Attrition~., data=data, cp = .005, method = "class")
+> rpart.plot(fit7,type=2, fallen.leaves=TRUE, tweak = 1.3, extra = 104)
+> fit7 <- rpart(Attrition~., data=data, cp = .04, method = "class")
+> rpart.plot(fit7,type=2, fallen.leaves=TRUE, tweak = 1.3, extra = 104)
+> fit7 <- rpart(Attrition~., data=data, cp = .01, method = "class")
+> rpart.plot(fit7,type=2, fallen.leaves=TRUE, tweak = 1.3, extra = 104)
+> rpart.plot(fit7,type=2, fallen.leaves=TRUE, tweak = 1.8, extra = 104)
+> rpart.plot(fit7,type=2, fallen.leaves=TRUE, tweak = 2.8, extra = 104)
+> fancyRpartPlot(fit7, tweak = 1,uniform=TRUE, type = 2)
+> fancyRpartPlot(fit7, tweak = 1.8,uniform=TRUE, type = 2)
+> fancyRpartPlot(fit7, tweak = 2.5,uniform=TRUE, type = 2)
+> rattle()
+
+(rsession.exe:3972): Gtk-WARNING **: Could not find the icon 'gtk-file'. The 'hicolor' theme
+was not found either, perhaps you need to install it.
+You can get a copy from:
+	http://icon-theme.freedesktop.org/releases
+
+Attaching package: ‘Hmisc’
+
+The following object is masked from ‘package:gridExtra’:
+
+    combine
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, round.POSIXt, trunc.POSIXt, units
+
+also installing the dependencies ‘timeSeries’, ‘gss’, ‘stabledist’
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/timeSeries_3042.102.zip'
+Content type 'application/zip' length 1618523 bytes (1.5 MB)
+downloaded 1.5 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/gss_2.1-7.zip'
+Content type 'application/zip' length 875906 bytes (855 KB)
+downloaded 855 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/stabledist_0.7-1.zip'
+Content type 'application/zip' length 42186 bytes (41 KB)
+downloaded 41 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/fBasics_3042.89.zip'
+Content type 'application/zip' length 1564491 bytes (1.5 MB)
+downloaded 1.5 MB
+
+package ‘timeSeries’ successfully unpacked and MD5 sums checked
+package ‘gss’ successfully unpacked and MD5 sums checked
+package ‘stabledist’ successfully unpacked and MD5 sums checked
+package ‘fBasics’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\acer\AppData\Local\Temp\RtmpQZi8wb\downloaded_packages
+Error in .subset2(x, i, exact = exact) : 
+  attempt to select less than one element in get1index
+In addition: Warning messages:
+1: package ‘Hmisc’ was built under R version 3.4.2 
+2: package ‘fBasics’ was built under R version 3.4.3 
+3: package ‘timeSeries’ was built under R version 3.4.3 
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/pROC_1.10.0.zip'
+Content type 'application/zip' length 934386 bytes (912 KB)
+downloaded 912 KB
+
+package ‘pROC’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\acer\AppData\Local\Temp\RtmpQZi8wb\downloaded_packages
+also installing the dependencies ‘dotCall64’, ‘spam’, ‘maps’, ‘proxy’, ‘fields’, ‘CircStats’, ‘dtw’
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/dotCall64_0.9-04.zip'
+Content type 'application/zip' length 120202 bytes (117 KB)
+downloaded 117 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/spam_2.1-1.zip'
+Content type 'application/zip' length 1892227 bytes (1.8 MB)
+downloaded 1.8 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/maps_3.2.0.zip'
+Content type 'application/zip' length 3631663 bytes (3.5 MB)
+downloaded 3.5 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/proxy_0.4-19.zip'
+Content type 'application/zip' length 199583 bytes (194 KB)
+downloaded 194 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/fields_9.0.zip'
+Content type 'application/zip' length 3611066 bytes (3.4 MB)
+downloaded 3.4 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/CircStats_0.2-4.zip'
+Content type 'application/zip' length 120241 bytes (117 KB)
+downloaded 117 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/dtw_1.18-1.zip'
+Content type 'application/zip' length 749263 bytes (731 KB)
+downloaded 731 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/verification_1.42.zip'
+Content type 'application/zip' length 1438083 bytes (1.4 MB)
+downloaded 1.4 MB
+
+package ‘dotCall64’ successfully unpacked and MD5 sums checked
+package ‘spam’ successfully unpacked and MD5 sums checked
+package ‘maps’ successfully unpacked and MD5 sums checked
+package ‘proxy’ successfully unpacked and MD5 sums checked
+package ‘fields’ successfully unpacked and MD5 sums checked
+package ‘CircStats’ successfully unpacked and MD5 sums checked
+package ‘dtw’ successfully unpacked and MD5 sums checked
+package ‘verification’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\acer\AppData\Local\Temp\RtmpQZi8wb\downloaded_packages
+Loading required package: fields
+Loading required package: spam
+Loading required package: dotCall64
+Loading required package: grid
+Spam version 2.1-1 (2017-07-02) is loaded.
+Type 'help( Spam)' or 'demo( spam)' for a short introduction 
+and overview of this package.
+Help for individual functions is also obtained by adding the
+suffix '.spam' to the function name, e.g. 'help( chol.spam)'.
+
+Attaching package: ‘spam’
+
+The following objects are masked from ‘package:base’:
+
+    backsolve, forwardsolve
+
+Loading required package: maps
+
+Attaching package: ‘fields’
+
+The following object is masked from ‘package:Hmisc’:
+
+    describe
+
+Loading required package: boot
+
+Attaching package: ‘boot’
+
+The following object is masked from ‘package:lattice’:
+
+    melanoma
+
+The following object is masked from ‘package:survival’:
+
+    aml
+
+Loading required package: CircStats
+Loading required package: MASS
+Loading required package: dtw
+Loading required package: proxy
+
+Attaching package: ‘proxy’
+
+The following object is masked from ‘package:spam’:
+
+    as.matrix
+
+The following object is masked from ‘package:timeSeries’:
+
+    as.matrix
+
+The following objects are masked from ‘package:stats’:
+
+    as.dist, dist
+
+The following object is masked from ‘package:base’:
+
+    as.matrix
+
+Loaded dtw v1.18-1. See ?dtw for help, citation("dtw") for use in publication.
+
+Error in sort.list(y) : 'x' must be atomic for 'sort.list'
+Have you called 'sort' on a list?
+In addition: Warning messages:
+1: package ‘verification’ was built under R version 3.4.3 
+2: package ‘fields’ was built under R version 3.4.3 
+3: package ‘spam’ was built under R version 3.4.3 
+4: package ‘dotCall64’ was built under R version 3.4.3 
+5: package ‘maps’ was built under R version 3.4.3 
+6: package ‘boot’ was built under R version 3.4.2 
+7: package ‘CircStats’ was built under R version 3.4.3 
+8: package ‘dtw’ was built under R version 3.4.3 
+9: package ‘proxy’ was built under R version 3.4.3 
+Error in sort.list(y) : 'x' must be atomic for 'sort.list'
+Have you called 'sort' on a list?
+Error in sort.list(y) : 'x' must be atomic for 'sort.list'
+Have you called 'sort' on a list?
+Error in sort.list(y) : 'x' must be atomic for 'sort.list'
+Have you called 'sort' on a list?
+In addition: Warning message:
+package ‘bindrcpp’ was built under R version 3.4.2 
+Error in sort.list(y) : 'x' must be atomic for 'sort.list'
+Have you called 'sort' on a list?
+Error in sort.list(y) : 'x' must be atomic for 'sort.list'
+Have you called 'sort' on a list?
+Error in sort.list(y) : 'x' must be atomic for 'sort.list'
+Have you called 'sort' on a list?
+Error in sort.list(y) : 'x' must be atomic for 'sort.list'
+Have you called 'sort' on a list?
+Error in sort.list(y) : 'x' must be atomic for 'sort.list'
+Have you called 'sort' on a list?
